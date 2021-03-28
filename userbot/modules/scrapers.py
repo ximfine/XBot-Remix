@@ -186,7 +186,7 @@ async def img_sampler(event):
         "keywords": query,
         "limit": lim,
         "format": "jpg",
-        "output_directory": "./downloads/"
+        "output_directory": "no_directory"
     }
 
     # passing the arguments to the function
