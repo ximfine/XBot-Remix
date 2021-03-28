@@ -8,4 +8,10 @@ RUN git clone -b alpha https://github.com/ximfine/Xbot-Remix /home/xnewbie/
 RUN mkdir /home/xnewbie/bin/
 WORKDIR /home/xnewbie/
 
+# Upgrade pip
+RUN pip install --upgrade pip
+
+#Install python requirements
+# RUN pip3 install -r https://raw.githubusercontent.com/ximfine/XUserbot/sql-extended/requirements.txt
+
 CMD ["python3","-m","userbot"]
