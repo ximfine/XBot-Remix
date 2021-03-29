@@ -1,5 +1,5 @@
 # We're using Ubuntu 20.10
-FROM ximfine/xproject:buster
+FROM ximfine/remix:buster
 
 #
 # Clone repo and prepare working directory
@@ -9,7 +9,7 @@ RUN mkdir /home/xnewbie/bin/
 WORKDIR /home/xnewbie/
 
 # Upgrade pip
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 
 #Install python requirements
 # RUN pip3 install -r https://raw.githubusercontent.com/ximfine/XUserbot/sql-extended/requirements.txt
