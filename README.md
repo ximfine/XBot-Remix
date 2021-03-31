@@ -32,7 +32,9 @@
 
 ## Generate String Session
 
-Get On Telegram With bot [Klik Here](https://t.me/stringxbot)
+•Get On Telegram With Bot [KLIK HERE](https://t.me/stringxbot) 🔥
+
+•With Repl.it [KLIK HERE](https://repl.it/@ximfine/string#main.py) 🔥
 
 ### Or Run on your terminal
 
