@@ -32,6 +32,8 @@
 
 ## Generate String Session
 
+Get On Telegram With bot [Klik Here](https://t.me/stringxbot)
+
 ### Or Run on your terminal
 
 ```
