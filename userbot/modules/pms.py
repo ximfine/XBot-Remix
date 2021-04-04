@@ -20,7 +20,6 @@ from userbot import (
     LOGS,
     PM_AUTO_BAN,
     ALIVE_NAME,
-    ALIVE_LOGO,
 )
 from userbot.events import register
 
@@ -28,21 +27,19 @@ from userbot.events import register
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 
 DEF_UNAPPROVED_MSG = (
-    f"__Hai Selamat datang di chat__ {DEFAULTUSER}\n"
+    f"Hai Selamat datang di chat {DEFAULTUSER}\n"
     "╾─────────────────────╼\n"
-    " __Mohon untuk tidak__\n"
-    " __melakukan spam chat\n"
-    " Atau Saya Akan Otomatis__\n"
-    " __Mereport & Block Kamu__\n"
-    " __Silahkan Tunggu Sampai__\n"
-    f" {DEFAULTUSER} __Menerima Pesanmu__\n"
+    " Mohon untuk tidak\n"
+    " melakukan spam chat\n"
+    " Atau Saya Akan Otomatis\n"
+    " Mereport & Block Kamu\n"
+    " Silahkan Tunggu Sampai\n"
+    f" {DEFAULTUSER} Menerima Pesanmu\n"
     "─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇─̇\n\n"
-    f"- **©Bot Assisten** {DEFAULTUSER}\n"
-    "- **Protected By** 🔥XBOT-REMIX🔥")
+    f"- ©Bot Assisten {DEFAULTUSER}\n"
+    "- Protected By 🔥XBOT-REMIX🔥")
 # =================================================================
 
-logo = ALIVE_LOGO
-output = DEF_UNAPPROVED_MSG
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
 async def permitpm(event):
@@ -85,9 +82,9 @@ async def permitpm(event):
                         event.chat_id, from_user="me", search=UNAPPROVED_MSG
                     ):
                         await message.delete()
-                    await bot.send_file(event.chat_id, logo, caption=output)
+                    await event.reply(f"{UNAPPROVED_MSG}")
             else:
-                await bot.send_file(event.chat_id, logo, caption=output)
+                await event.reply(f"{UNAPPROVED_MSG}")
             LASTMSG.update({event.chat_id: event.text})
             if notifsoff:
                 await event.client.send_read_acknowledge(event.chat_id)
