@@ -28,7 +28,6 @@ import emoji
 from googletrans import Translator
 from time import sleep
 from re import findall
-from shutil import rmtree
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from urllib.parse import quote_plus
@@ -632,7 +631,7 @@ async def kbg(remob):
             remove_bg_image.name = "removed_bg.png"
             await remob.client.send_file(
                 remob.chat_id,
-                remove_bg_image,               
+                remove_bg_image,
                 force_document=True,
                 reply_to=message_id)
             await remob.delete()

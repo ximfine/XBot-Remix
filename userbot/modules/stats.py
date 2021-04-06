@@ -1,6 +1,5 @@
 """Count the Number of Dialogs you have in your Telegram Account
 Syntax: .stats"""
-import io
 import logging
 import time
 from telethon import events
@@ -110,6 +109,7 @@ def user_full_name(user):
     names = [i for i in list(names) if i]
     full_name = ' '.join(names)
     return full_name
+
 
 @register(outgoing=True, pattern=r"^\.ustat")
 async def _(event):

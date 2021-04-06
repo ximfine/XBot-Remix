@@ -4,7 +4,7 @@ from telethon.tl.types import ChatBannedRights
 from userbot.utils.tools import is_admin
 import userbot.modules.sql_helper.antiflood_sql as sql
 from userbot.events import register
-from userbot import bot, CMD_HELP
+from userbot import CMD_HELP
 
 CHAT_FLOOD = sql.__load_flood_settings()
 # warn mode for anti flood
