@@ -1152,7 +1152,7 @@ async def google_drive(gdrive):
             link_preview=False
         )
     await gdrive.delete()
-    os.system("rm -rf *.mp4 *.mp3 *.jpg *.png *.tgs *.webm")
+    os.system("rm -f downloads/*.mp4 *.mp3 *.jpg *.png *.tgs *.webm")
     return
 
 
