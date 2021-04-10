@@ -319,15 +319,15 @@ with bot:
             text = (
                 f"Hai {sender.first_name}\nSaya adalah bot assisten {ALIVE_NAME}\n\nSaya adalah [XBØT-REMIX](https://github.com/ximfine/XBot-Remix) modules helper...\nplease make your own bot, don't use mine")
             await tgbot.send_file(event.chat_id, logo, caption=text,
-                  buttons=[
-                 [
-                  Button.url(
-                    text="🔱 OFFICIAL CHANNELS 🔱",
-                    url="https://t.me/X_Projectss"
-                )
-            ]
-        ]
-    )
+                                  buttons=[
+                                      [
+                                          Button.url(
+                                              text="🔱 OFFICIAL CHANNELS 🔱",
+                                              url="https://t.me/X_Projectss"
+                                          )
+                                      ]
+                                  ]
+                                  )
 
         @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
         async def inline_handler(event):
@@ -391,8 +391,7 @@ with bot:
         @tgbot.on(events.CallbackQuery(data=b'close'))
         async def close(event):
             await event.edit("Button closed!", buttons=Button.clear())
-            
-            
+
         @tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_prev\((.+?)\)")
