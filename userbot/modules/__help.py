@@ -24,7 +24,7 @@ async def yardim(event):
     tgbotusername = BOT_USERNAME
     if tgbotusername and BOT_TOKEN:
         try:
-            results = await event.client.inline_query(tgbotusername)
+            results = await event.client.inline_query(tgbotusername, "@XBOT")
         except BotInlineDisabledError:
             return await event.edit(
                 "`Bot can't be used in inline mode.\nMake sure to turn on inline mode!`"
