@@ -860,6 +860,62 @@ weebyfont = [
     '乂',
     '丫',
     '乙']
+    
+xbotfont = [
+    'Ꭺ',
+    'Ᏼ',
+    'Ꮯ',
+    'Ꭰ',
+    'Ꭼ',
+    'Ꮀ',
+    'Ꮐ',
+    'Ꮋ',
+    'Ꮖ',
+    'Ꭻ',
+    'Ꮶ',
+    'Ꮮ',
+    'Ꮇ',
+    'N',
+    'Ꮎ',
+    'Ꮲ',
+    'Ꭴ',
+    'Ꭱ',
+    'Ꮪ',
+    'Ꭲ',
+    'Ꮜ',
+    'Ꮩ',
+    'Ꮃ',
+    'X',
+    'Ꭹ',
+    'Ꮓ']
+
+xxbotfont = [
+    'A͜͡',
+    'B͜͡',
+    'C͜͡',
+    'D͜͡',
+    'E͜͡',
+    'F͜͡',
+    'G͜͡',
+    'H͜͡',
+    'I͜͡',
+    'J͜͡',
+    'K͜͡',
+    'L͜͡',
+    'M͜͡',
+    'N͜͡',
+    'O͜͡',
+    'P͜͡',
+    'Q͜͡',
+    'R͜͡',
+    'S͜͡',
+    'T͜͡',
+    'U͜͡',
+    'V͜͡',
+    'W͜͡',
+    'X͜͡',
+    'Y͜͡',
+    'Z͜͡']
 
 # ===========================================
 
@@ -1339,6 +1395,37 @@ async def weebify(e):
             string = string.replace(normiecharacter, weebycharacter)
     await e.edit(string)
 
+@register(outgoing=True, pattern=r"^\.xxfont(?: |$)(.*)")
+async def xxfont(e):
+    args = e.pattern_match.group(1)
+    if not args:
+        get = await e.get_reply_message()
+        args = get.text
+    if not args:
+        await e.edit("`What I am Supposed to Weebify U Dumb`")
+        return
+    string = '  '.join(args).lower()
+    for normiecharacter in string:
+        if normiecharacter in normiefont:
+            weebycharacter = xxbotfont[normiefont.index(normiecharacter)]
+            string = string.replace(normiecharacter, weebycharacter)
+    await e.edit(string)
+
+@register(outgoing=True, pattern=r"^\.xfont(?: |$)(.*)")
+async def xfont(e):
+    args = e.pattern_match.group(1)
+    if not args:
+        get = await e.get_reply_message()
+        args = get.text
+    if not args:
+        await e.edit("`What I am Supposed to Weebify U Dumb`")
+        return
+    string = '  '.join(args).lower()
+    for normiecharacter in string:
+        if normiecharacter in normiefont:
+            weebycharacter = xbotfont[normiefont.index(normiecharacter)]
+            string = string.replace(normiecharacter, weebycharacter)
+    await e.edit(string)
 
 @register(outgoing=True, pattern=r"^\.clap(?: |$)(.*)")
 async def claptext(memereview):
@@ -1698,19 +1785,13 @@ async def emoji_kontl(e):
 
 @register(outgoing=True, pattern=r"^\.ok$")
 async def emoji_oke(e):
-    emoji = e.pattern_match.group(1)
     oke = GAMBAR_OK
-    if emoji:
-        oke = oke.replace('😂', emoji)
     await e.edit(oke)
 
 
 @register(outgoing=True, pattern=r"^\.skull$")
 async def emoji_tengkorak(e):
-    emoji = e.pattern_match.group(1)
     tengkorak = GAMBAR_TENGKORAK
-    if emoji:
-        tengkorak = tengkorak.replace('😂', emoji)
     await e.edit(tengkorak)
 
 
@@ -1783,6 +1864,6 @@ CMD_HELP.update({
     "`\n>.nou ; .bot ; .gey ; .tf ; .paw ; .taco ; .nih ;`"
     "`\n>.fag ; .gtfo ; .stfu ; .lol ; .lool ; .fail ; .leave`"
     "`\n>.iwi ; .sayhi ; .koc ; .gas ; .earth ; .love ; .rain`"
-    "`\n>.penis ; .emo ; .fuck ; .ok ; .skull`"
+    "`\n>.penis ; .emo ; .fuck ; .ok ; .skull ; .xfont ; .xxfont`"
     "\n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
 })
