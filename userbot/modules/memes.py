@@ -860,7 +860,7 @@ weebyfont = [
     '乂',
     '丫',
     '乙']
-    
+
 xbotfont = [
     'Ꭺ',
     'Ᏼ',
@@ -1395,6 +1395,7 @@ async def weebify(e):
             string = string.replace(normiecharacter, weebycharacter)
     await e.edit(string)
 
+
 @register(outgoing=True, pattern=r"^\.xxfont(?: |$)(.*)")
 async def xxfont(e):
     args = e.pattern_match.group(1)
@@ -1411,6 +1412,7 @@ async def xxfont(e):
             string = string.replace(normiecharacter, weebycharacter)
     await e.edit(string)
 
+
 @register(outgoing=True, pattern=r"^\.xfont(?: |$)(.*)")
 async def xfont(e):
     args = e.pattern_match.group(1)
@@ -1426,6 +1428,7 @@ async def xfont(e):
             weebycharacter = xbotfont[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, weebycharacter)
     await e.edit(string)
+
 
 @register(outgoing=True, pattern=r"^\.clap(?: |$)(.*)")
 async def claptext(memereview):
