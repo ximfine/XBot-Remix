@@ -19,7 +19,7 @@ from pySmartDL import SmartDL
 from requests import get
 from telethon.sessions import StringSession
 from telethon.sync import TelegramClient, custom, events
-
+from telethon import events, Button
 load_dotenv("config.env")
 
 StartTime = time.time()
@@ -179,7 +179,7 @@ TERM_ALIAS = os.environ.get("TERM_ALIAS") or "XBOT-REMIX"
 GENIUS = os.environ.get("GENIUS_ACCESS_TOKEN") or None
 
 # Bot version
-BOT_VER = os.environ.get("BOT_VER", "REMIX 01")
+BOT_VER = os.environ.get("BOT_VER", "REMIX X")
 
 CMD_HELP = {}
 
@@ -269,11 +269,11 @@ with bot:
 
 def paginate_help(page_number, loaded_modules, prefix):
     number_of_rows = 5
-    number_of_cols = 2
+    number_of_cols = 3
     helpable_modules = [p for p in loaded_modules if not p.startswith("_")]
     helpable_modules = sorted(helpable_modules)
     modules = [
-        custom.Button.inline("{} {}".format("▫️", x), data="ub_modul_{}".format(x))
+        custom.Button.inline("{} {}".format("☠️", x), data="ub_modul_{}".format(x))
         for x in helpable_modules
     ]
     pairs = list(zip(modules[::number_of_cols], modules[1::number_of_cols]))
@@ -288,6 +288,9 @@ def paginate_help(page_number, loaded_modules, prefix):
             (
                 custom.Button.inline(
                     "⬅️", data="{}_prev({})".format(prefix, modulo_page)
+                ),
+                custom.Button.inline(
+                    '❎', b'close'
                 ),
                 custom.Button.inline(
                     "➡️", data="{}_next({})".format(prefix, modulo_page)
@@ -308,15 +311,23 @@ with bot:
         dugmeler = CMD_HELP
         me = bot.get_me()
         uid = me.id
+        logo = "https://telegra.ph/file/099b2bf1c3256847946bf.mp4"
 
         @tgbot.on(events.NewMessage(pattern="/start"))
         async def handler(event):
-            if event.message.from_id != uid:
-                await event.reply(
-                    "I'm [🔥 XBØT 🔥](https://github.com/ximfine/XBot-Remix) modules helper...\nplease make your own bot, don't use mine 😋"
+            sender = await event.message.get_sender()
+            text = (
+                f"Hai {sender.first_name}\nSaya adalah bot assisten {ALIVE_NAME}\n\nSaya adalah [XBØT-REMIX](https://github.com/ximfine/XBot-Remix) modules helper...\nplease make your own bot, don't use mine")
+            await tgbot.send_file(event.chat_id, logo, caption=text,
+                  buttons=[
+                 [
+                  Button.url(
+                    text="🔱 OFFICIAL CHANNELS 🔱",
+                    url="https://t.me/X_Projectss"
                 )
-            else:
-                await event.reply(f"`Hey there {ALIVE_NAME}\n\nI work for you :)`")
+            ]
+        ]
+    )
 
         @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
         async def inline_handler(event):
@@ -353,7 +364,7 @@ with bot:
                             ),
                             custom.Button.url(
                                 "Support",
-                                "https://t.me/UserBotIndo"),
+                                "https://t.me/X_Projectss"),
                         ],
                     ],
                     link_preview=False,
@@ -377,6 +388,11 @@ with bot:
                 reply_pop_up_alert = "Please make for yourself, don't use my bot!"
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
+        @tgbot.on(events.CallbackQuery(data=b'close'))
+        async def close(event):
+            await event.edit("Button closed!", buttons=Button.clear())
+            
+            
         @tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_prev\((.+?)\)")
