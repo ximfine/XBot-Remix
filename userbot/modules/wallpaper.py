@@ -21,8 +21,7 @@ async def _(event):
         await event.edit("`Processing..`")
         async with bot.conversation("@xbotgroupbot") as conv:
             try:
-                query1 = await conv.send_message(f"/wall {query}")
-                asyncio.sleep(3)
+                query1 = await conv.send_message(f"/wall {query}")                
                 r1 = await conv.get_response()
                 r2 = await conv.get_response()
                 await bot.send_read_acknowledge(conv.chat_id)
