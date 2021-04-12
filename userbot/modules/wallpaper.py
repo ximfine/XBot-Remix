@@ -4,7 +4,6 @@
 # you may not use this file except in compliance with the License.
 #
 
-import asyncio
 import os
 from asyncio.exceptions import TimeoutError
 
@@ -21,7 +20,7 @@ async def _(event):
         await event.edit("`Processing..`")
         async with bot.conversation("@xbotgroupbot") as conv:
             try:
-                query1 = await conv.send_message(f"/wall {query}")                
+                query1 = await conv.send_message(f"/wall {query}")
                 r1 = await conv.get_response()
                 r2 = await conv.get_response()
                 await bot.send_read_acknowledge(conv.chat_id)
