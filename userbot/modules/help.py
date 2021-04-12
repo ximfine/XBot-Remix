@@ -37,7 +37,7 @@ async def help(event):
             string += "`" + str(i)
             string += "`\t• "
         h = await event.reply(f"•{string}•"
-                          "\n╾─────────────────────╼")
+                              "\n╾─────────────────────╼")
         await asyncio.sleep(100)
         await h.delete()
         await event.delete()
