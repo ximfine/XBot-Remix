@@ -8,10 +8,6 @@ from userbot.utils import progress
 from userbot.events import register
 from userbot import bot, CMD_HELP
 
-path = "./dcobra/"
-if not os.path.isdir(path):
-    os.makedirs(path)
-
 
 @register(outgoing=True, pattern=r"^\.rgif(?: |$)(.*)")
 async def _(event):
@@ -19,7 +15,7 @@ async def _(event):
         return
     reply = await event.get_reply_message()
     await event.edit("__Mengecek...__")
-    download = await bot.download_media(reply.media, path)
+    download = await bot.download_media(reply.media)
     img = cv2.VideoCapture(download)
     ret, frame = img.read()
     cv2.imwrite("danish.png", frame)
@@ -38,9 +34,12 @@ async def _(event):
         progress(d, t, event, c_time, "[UPLOAD]")
     ),)
     await event.delete()
-    shutil.rmtree(path)
+    os.system("rm -f downloads/*.jpg")
+    os.system("rm -f downloads/*.png")
+    os.system("rm -f downloads/*.webp")
+    os.system("rm -f *.jpg")
+    os.system("rm -f *.png")
     os.remove("danish.mp4")
-    os.remove("danish.png")
 
 
 CMD_HELP.update(
