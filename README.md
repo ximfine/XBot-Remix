@@ -59,7 +59,7 @@ wget https://raw.githubusercontent.com/ximfine/XBot-Remix/alpha/Getstring.sh && 
   > Finally turn on the app and check the logs (settings -> view logs) enjoy :)
 ```
 
-## 💻<p align="center">Deploy on Heroku</p>
+## <p align="center">💻Deploy on Heroku</p>
 
 
 <p align="center"><a href="https://heroku.com/deploy?template=https://github.com/ximfine/XBot-Remix/tree/alpha"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blue?style=flat&logo=heroku" width="210" height="34.45" /></a></p>
