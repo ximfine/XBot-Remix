@@ -4,7 +4,7 @@ from telethon.tl.types import (
     MessageEntityMentionName,
 )
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, ALIVE_NAME
 from userbot.events import register
 
 
@@ -54,12 +54,13 @@ async def gspider(userbot):
     lol = userbot
     sender = await lol.get_sender()
     me = await lol.client.get_me()
+    userbot.pattern_match.group(1)
     if not sender.id == me.id:
-        friday = await lol.reply("Gbanning User..")
+        friday = await lol.reply("Gbanning User....")
     else:
         friday = await lol.edit("Wait Processing.....")
     me = await userbot.client.get_me()
-    await friday.edit(f"**Global Ban user..**")
+    await friday.edit(f"**Global Ban User....**")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
     await userbot.get_chat()
@@ -75,7 +76,7 @@ async def gspider(userbot):
         pass
     try:
         if not reason:
-            reason = "Private"
+            reason = "No Reason"
     except BaseException:
         return await friday.edit(f"**Terjadi Kesalahan!!**")
     if user:
@@ -104,21 +105,24 @@ async def gspider(userbot):
             except BaseException:
                 b += 1
     else:
-        await friday.edit(f"**Reply to a user !!**")
+        await friday.edit("**Reply to a user !!**")
     try:
         if gmute(user.id) is False:
             return await friday.edit(f"**Error! User telah di gbanned.**")
     except BaseException:
         pass
-    return await friday.edit(
-        f"**Gbanned [{user.first_name}](tg://user?id={user.id}) Dari : {a} Group**"
-    )
-
+    if reason:
+        await friday.edit(f"**// GLOBAL BANNED USER //**\n\n**Name:** [{user.first_name}](tg://user?id={user.id})\n**Total Group:** {a}\n**Reason:** {reason}"
+                          )
+    else:
+        await friday.edit(f"**// GLOBAL BANNED USER //**\n\n**Name:** [{user.first_name}](tg://user?id={user.id})\n**Total Group:** {a}\n**Reason:** {reason}"
+                          )
     if BOTLOG:
-        await event.client.send_message(
+        await bot.send_message(
             BOTLOG_CHATID,
-            "#GBANNED\n"
-            f"USER: [{user.first_name}](tg://user?id={user.id})"
+            "#GLOBAL_BANNED\n\n"
+            f"**USER:** [{user.first_name}](tg: // user?id={user.id})\n"
+            f"**SUDO:** {ALIVE_NAME}"
         )
 
 
@@ -132,7 +136,7 @@ async def gspider(userbot):
     else:
         friday = await lol.edit("Just a Second ")
     me = await userbot.client.get_me()
-    await friday.edit(f"Trying To Ungban User !")
+    await friday.edit(f"Ungbanning User..")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
     await userbot.get_chat()
@@ -181,9 +185,19 @@ async def gspider(userbot):
             return await friday.edit("**Error! User probably already ungbanned.**")
     except BaseException:
         pass
-    return await friday.edit(
-        f"**UNGBANNED // USER - [{user.first_name}](tg://user?id={user.id}) CHATS : {a} **"
-    )
+    if reason:
+        await friday.edit(f"**// UNGBANNED USER //**\n\n**Name:** [{user.first_name}](tg://user?id={user.id})\n**Total Group:** {a}"
+                          )
+    else:
+        await friday.edit(f"**// UNGBANNED USER //**\n\n**Name:** [{user.first_name}](tg://user?id={user.id})\n**Total Group:** {a}"
+                          )
+    if BOTLOG:
+        await bot.send_message(
+            BOTLOG_CHATID,
+            "#UNGBANNED\n\n"
+            f"**USER:** [{user.first_name}](tg: // user?id={user.id})\n"
+            f"**SUDO:** {ALIVE_NAME}"
+        )
 
 
 CMD_HELP.update({
