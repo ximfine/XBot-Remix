@@ -7,6 +7,12 @@ import glob
 import os
 import shutil
 import time
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+import os
+import time
+from asyncio.exceptions import TimeoutError
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
 
 import deezloader
 from hachoir.metadata import extractMetadata
@@ -50,6 +56,44 @@ async def getmusicvideo(cat):
     os.system(command)
 
 
+async def catmusic(cat, QUALITY, hello):
+    search = cat
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--test-type")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.get("https://www.youtube.com/results?search_query=" + search)
+    user_data = driver.find_elements_by_xpath('//*[@id="video-title"]')
+    for i in user_data:
+        video_link = i.get_attribute("href")
+        break
+    if not os.path.isdir("./temp/"):
+        os.makedirs("./temp/")
+    if not video_link:
+        await hello.edit(f"Sorry. I can't find that song `{search}`")
+        return
+    try:
+        command = (
+            'youtube-dl -o "./temp/%(title)s.%(ext)s" --extract-audio --audio-format mp3 --audio-quality ' +
+            QUALITY +
+            " " +
+            video_link)
+        os.system(command)
+    except Exception as e:
+        return await hello.edit(f"`Error:\n {e}`")
+    try:
+        thumb = (
+            'youtube-dl -o "./temp/%(title)s.%(ext)s" --write-thumbnail --skip-download ' +
+            video_link)
+        os.system(thumb)
+    except Exception as e:
+        return await hello.edit(f"`Error:\n {e}`")
+
+
 @register(outgoing=True, pattern=r"^\.netease (?:(now)|(.*) - (.*))")
 async def _(event):
     if event.fwd_from:
@@ -90,6 +134,49 @@ async def _(event):
         return await event.edit(
             "`Error: `@WooMaiBot` is not responding or Song not found!.`"
         )
+
+
+@register(outgoing=True, pattern="^.song(?: |$)(.*)")
+async def _(event):
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+    reply = await event.get_reply_message()
+    if event.pattern_match.group(1):
+        query = event.pattern_match.group(1)
+    elif reply:
+        if reply.message:
+            query = reply.message
+    else:
+        event = await event.edit("`Apa yang harus saya cari?`")
+        return
+    event = await event.edit(f"`Mencari music {query}....`")
+    await catmusic(str(query), "320k", event)
+    l = glob.glob("./temp/*.mp3")
+    if l:
+        await event.edit(f"Ok!, {query} di temukan..")
+    else:
+        await event.edit(f"Maaf saya tidak dapat menemukan lagu `{query}`")
+        return
+    thumbcat = glob.glob("./temp/*.jpg") + glob.glob("./temp/*.webp")
+    if thumbcat:
+        catthumb = thumbcat[0]
+    else:
+        catthumb = None
+    loa = l[0]
+    await bot.send_file(
+        event.chat_id,
+        loa,
+        force_document=False,
+        allow_cache=False,
+        caption=query,
+        thumb=catthumb,
+        supports_streaming=True,
+    )
+    await event.delete()
+    os.system("rm -rf ./temp/*.mp3")
+    os.system("rm -rf ./temp/*.jpg")
+    os.system("rm -rf ./temp/*.webp")
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
@@ -338,6 +425,8 @@ CMD_HELP.update(
         "\nUsage: Download music with @WooMaiBot"
         "\n\n>`.netease now`"
         "\nUsage: Download current LastFM scrobble use `@WooMaiBot`."
+        "\n\n>`.song` **Artist - Song Title**"
+        "\nUsage: Finding and uploading song from youtube."
         "\n\n>`.vsong` **Artist - Song Title**"
         "\nUsage: Finding and uploading videoclip."
         "\n\n>`.smd <Artist - Song Title>`"
