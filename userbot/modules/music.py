@@ -138,9 +138,9 @@ async def _(event):
 
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
 async def _(event):
-    reply_to_id = event.message.id
+    event.message.id
     if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
+        event.reply_to_msg_id
     reply = await event.get_reply_message()
     if event.pattern_match.group(1):
         query = event.pattern_match.group(1)
