@@ -468,3 +468,4 @@ LASTMSG = {}
 ISAFK = False
 AFKREASON = None
 ZALG_LIST = {}
+LOAD_PLUG = {}
