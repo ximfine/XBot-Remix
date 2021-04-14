@@ -37,7 +37,7 @@ lottie
 lxml
 oauth2client
 Pillow
-psycopg2
+# psycopg2
 psycopg2-binary
 pybase64
 pyfiglet
