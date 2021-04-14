@@ -6,12 +6,11 @@
 """ Userbot module containing commands related to the \
     Information Superhighway (yes, Internet). """
 
-from datetime import datetime
-
-from speedtest import Speedtest
-from userbot import CMD_HELP, StartTime
-from userbot.events import register
+import speedtest
 import time
+from datetime import datetime
+from userbot import StartTime, bot, CMD_HELP
+from userbot.events import register
 
 
 async def get_readable_time(seconds: int) -> str:
@@ -41,32 +40,6 @@ async def get_readable_time(seconds: int) -> str:
     return up_time
 
 
-@register(outgoing=True, pattern="^.speed$")
-async def speedtst(spd):
-    """ For .speed command, use SpeedTest to check server speeds. """
-    await spd.edit("`Running high speed test . . .`")
-    test = Speedtest()
-
-    test.get_best_server()
-    test.download()
-    test.upload()
-    test.results.share()
-    result = test.results.dict()
-
-    await spd.edit("`"
-                   "Started at "
-                   f"{result['timestamp']} \n\n"
-                   "Download "
-                   f"{speed_convert(result['download'])} \n"
-                   "Upload "
-                   f"{speed_convert(result['upload'])} \n"
-                   "Ping "
-                   f"{result['ping']} \n"
-                   "ISP "
-                   f"{result['client']['isp']}"
-                   "`")
-
-
 def speed_convert(size):
     """
     Hi human, you can't read bytes?
@@ -78,6 +51,44 @@ def speed_convert(size):
         size /= power
         zero += 1
     return f"{round(size, 2)} {units[zero]}"
+
+
+@register(outgoing=True, pattern="^.speed$")
+async def _(event):
+    if event.fwd_from:
+        return
+    await event.edit("`Test Speed Internet connection` ⚡")
+    start = datetime.now()
+    s = speedtest.Speedtest()
+    s.get_best_server()
+    s.download()
+    s.upload()
+    end = datetime.now()
+    ms = (end - start).microseconds / 1000
+    response = s.results.dict()
+    download_speed = response.get("download")
+    upload_speed = response.get("upload")
+    ping_time = response.get("ping")
+    client_infos = response.get("client")
+    i_s_p = client_infos.get("isp")
+    i_s_p_rating = client_infos.get("isprating")
+    response = s.results.share()
+    speedtest_image = response
+    output = (f"**SpeedTest** completed in {ms}ms\n\n"
+              f"`•Download: {speed_convert(download_speed)}\n`"
+              f"`•Upload: {speed_convert(upload_speed)}\n`"
+              f"`•Ping: {ping_time}\n`"
+              f"`•ISP: {i_s_p}\n`"
+              f"`•ISP Rating: {i_s_p_rating}\n\n`"
+              "**POWERED BY XBOT REMIX 🔥**")
+    await bot.send_file(
+        event.chat_id,
+        speedtest_image,
+        caption=output,
+        force_document=False,
+        allow_cache=False
+    )
+    await event.delete()
 
 
 @register(outgoing=True, pattern="^.ping$")
@@ -101,7 +112,7 @@ async def pingme(pong):
     await pong.edit("`Ping!\n%sms`" % (duration))
 
 
-@register(outgoing=True, pattern="^.pink$")
+@ register(outgoing=True, pattern="^.pink$")
 async def pingme(pong):
     """ For .ping command, ping the userbot from any chat.  """
     start = datetime.now()
