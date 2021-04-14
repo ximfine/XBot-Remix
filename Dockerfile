@@ -12,6 +12,6 @@ WORKDIR /home/xnewbie/
 RUN pip install --upgrade pip
 
 #Install python requirements
-RUN pip3 install -r https://raw.githubusercontent.com/ximfine/XBot-Remix/alpha/requirements.txt
+# RUN pip3 install -r https://raw.githubusercontent.com/ximfine/XBot-Remix/alpha/requirements.txt
 
 CMD ["python3","-m","userbot"]
