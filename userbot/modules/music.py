@@ -109,8 +109,6 @@ async def _(event):
 
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
 async def download_video(v_url):
-    async def download_video(v_url):
-
     lazy = v_url
     sender = await lazy.get_sender()
     me = await lazy.client.get_me()
@@ -226,8 +224,14 @@ async def download_video(v_url):
             ).create_task(
                 progress(d, t, v_url, c_time, "Uploading..",
                          f"{rip_data['title']}.mp4")))
-        os.remove(f"{rip_data['id']}.mp4")
         await rkp.delete()
+        os.remove(f"{rip_data['id']}.mp4")
+        os.remove(thumb_image)
+        os.system("rm *.mkv *.mp4 *.webm *.mp3")
+    except BaseException:
+        os.remove(thumb_image)
+        os.system("rm *.mkv *.mp4 *.webm *.mp3")
+        return           
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
