@@ -7,6 +7,7 @@ import glob
 import os
 import shutil
 import time
+import json
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 import time
 from asyncio.exceptions import TimeoutError
@@ -105,17 +106,11 @@ async def _(event):
         )
 
 
-@register(outgoing=True, pattern="^.song(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.song(?: |$)(.*)")
 async def download_video(v_url):
     lazy = v_url
-    sender = await lazy.get_sender()
-    me = await lazy.client.get_me()
-
-    if not sender.id == me.id:
-        rkp = await lazy.edit("`Mencari Lagu...`")
-    else:
-        rkp = await lazy.edit("`Mencari Lagu...`")
     url = v_url.pattern_match.group(1)
+    rkp = await lazy.edit(f"`Mencari Music {url}...`")
     if not url:
         return await rkp.edit("`Error \nusage song <song name>`")
     search = SearchVideos(url, offset=1, mode="json", max_results=1)
@@ -156,10 +151,8 @@ async def download_video(v_url):
             'logtostderr':
             False
         }
-        video = False
-        song = True
     try:
-        await rkp.edit("`Proses upload, please wait..`")
+        await rkp.edit("`Fetching data, please wait..`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
@@ -192,40 +185,24 @@ async def download_video(v_url):
         await rkp.edit(f"{str(type(e)): {str(e)}}")
         return
     c_time = time.time()
-    if song:
-        await rkp.edit(f"`Preparing to upload song:`\
+
+    await rkp.edit(f"`Preparing to upload song:`\
         \n**{rip_data['title']}**")
-        await v_url.client.send_file(
-            v_url.chat_id,
-            f"{rip_data['id']}.mp3",
-            supports_streaming=True,
-            attributes=[
-                DocumentAttributeAudio(duration=int(rip_data['duration']),
-                                       title=str(rip_data['title']),
-                                       performer=str(rip_data['uploader']))
-            ],
-            progress_callback=lambda d, t: asyncio.get_event_loop(
-            ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
-                         f"{rip_data['title']}.mp3")))
-        os.remove(f"{rip_data['id']}.mp3")
-        await rkp.delete()
-    elif video:
-        await rkp.edit(f"`Prosess upload song :`\
-        \n**{rip_data['title']}**")
-        await v_url.client.send_file(
-            v_url.chat_id,
-            f"{rip_data['id']}.mp4",
-            supports_streaming=True,
-            caption=url,
-            progress_callback=lambda d, t: asyncio.get_event_loop(
-            ).create_task(
-                progress(d, t, v_url, c_time, "Uploading..",
-                         f"{rip_data['title']}.mp4")))
-        await rkp.delete()
-        os.remove(f"{rip_data['id']}.mp4")
-        os.remove(thumb_image)
-        os.system("rm *.mkv *.mp4 *.webm *.mp3")
+    await v_url.client.send_file(
+        v_url.chat_id,
+        f"{rip_data['id']}.mp3",
+        supports_streaming=True,
+        attributes=[
+            DocumentAttributeAudio(duration=int(rip_data['duration']),
+                                   title=str(rip_data['title']),
+                                   performer=str(rip_data['uploader']))
+        ],
+        progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+            progress(d, t, v_url, c_time, "Uploading..",
+                     f"{rip_data['title']}.mp3")))
+    os.remove(f"{rip_data['id']}.mp3")
+    await rkp.delete()
+    os.system("rm *.webp")
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
