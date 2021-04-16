@@ -228,10 +228,7 @@ async def download_video(v_url):
         os.remove(f"{rip_data['id']}.mp4")
         os.remove(thumb_image)
         os.system("rm *.mkv *.mp4 *.webm *.mp3")
-    except BaseException:
-        os.remove(thumb_image)
-        os.system("rm *.mkv *.mp4 *.webm *.mp3")
-        return
+    
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
