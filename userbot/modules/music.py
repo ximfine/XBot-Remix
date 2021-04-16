@@ -43,6 +43,7 @@ from youtube_dl.utils import (DownloadError, ContentTooShortError,
 
 from youtubesearchpython import SearchVideos
 
+
 async def getmusicvideo(cat):
     video_link = ""
     search = cat
@@ -61,6 +62,7 @@ async def getmusicvideo(cat):
         break
     command = 'youtube-dl -f "[filesize<50M]" --merge-output-format mp4 ' + video_link
     os.system(command)
+
 
 @register(outgoing=True, pattern=r"^\.netease (?:(now)|(.*) - (.*))")
 async def _(event):
