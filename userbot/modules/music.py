@@ -8,8 +8,9 @@ import os
 import shutil
 import time
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-import os
 import time
+import bs4
+from bs4 import BeautifulSoup
 from asyncio.exceptions import TimeoutError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
@@ -108,26 +109,27 @@ async def _(event):
 
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
 async def download_video(v_url):
-    lazy = v_url
-    sender = await lazy.get_sender()
-    me = await lazy.client.get_me()
+    async def download_video(v_url):
+
+    lazy = v_url ; sender = await lazy.get_sender() ; me = await lazy.client.get_me()
+
     if not sender.id == me.id:
-        rkp = await lazy.edit("`Mencari Music...`")
+        rkp = await lazy.edit("`Mencari Lagu...`")
     else:
-        rkp = await lazy.edit("`Mencari Music...`")
+    	rkp = await lazy.edit("`Mencari Lagu...`")   
     url = v_url.pattern_match.group(1)
     if not url:
-        return await rkp.edit("`Error \nusage song <song name>`")
-    search = SearchVideos(url, offset=1, mode="json", max_results=1)
+         return await rkp.edit("`Error \nusage song <song name>`")
+    search = SearchVideos(url, offset = 1, mode = "json", max_results = 1)
     test = search.result()
     p = json.loads(test)
     q = p.get('search_result')
     try:
-        url = q[0]['link']
-    except BaseException:
-        return await rkp.edit("`failed to find`")
+       url = q[0]['link']
+    except:
+    	return await rkp.edit("`Music tidak di temukan`")
     type = "audio"
-    await rkp.edit("`Preparing to download...`")
+    await rkp.edit("`Proses download...`")
     if type == "audio":
         opts = {
             'format':
@@ -157,9 +159,9 @@ async def download_video(v_url):
             False
         }
         video = False
-        song = True
+        song = True    
     try:
-        await rkp.edit("`Fetching data, please wait..`")
+        await rkp.edit("`Proses upload, please wait..`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
@@ -210,12 +212,6 @@ async def download_video(v_url):
                          f"{rip_data['title']}.mp3")))
         os.remove(f"{rip_data['id']}.mp3")
         await rkp.delete()
-        os.system("rm -f *.mp4")
-        os.system("rm -f *.3gp")
-        os.system("rm -f *.mkv")
-        os.system("rm -f *.png")
-        os.system("rm -f *.webp")
-        os.system("rm -f *.jpg")
     elif video:
         await rkp.edit(f"`Prosess upload song :`\
         \n**{rip_data['title']}**")
@@ -230,7 +226,6 @@ async def download_video(v_url):
                          f"{rip_data['title']}.mp4")))
         os.remove(f"{rip_data['id']}.mp4")
         await rkp.delete()
-        os.system("rm *.mkv *.mp4 *.webm *.webp *.jpg")
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
