@@ -9,8 +9,6 @@ import shutil
 import time
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 import time
-import bs4
-from bs4 import BeautifulSoup
 from asyncio.exceptions import TimeoutError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeAudio, DocumentAttributeVideo
@@ -228,7 +226,6 @@ async def download_video(v_url):
         os.remove(f"{rip_data['id']}.mp4")
         os.remove(thumb_image)
         os.system("rm *.mkv *.mp4 *.webm *.mp3")
-    
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
