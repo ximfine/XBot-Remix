@@ -124,7 +124,7 @@ async def frg(animu):
         sticcers = await bot.inline_query("honka_says_bot", f"{text}."
                                           )
     try:
-        await sticcers[2].click(
+        await sticcers[1].click(
             animu.chat_id,
             reply_to=animu.reply_to_msg_id,
             silent=True if animu.is_reply else False,
