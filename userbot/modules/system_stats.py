@@ -244,7 +244,7 @@ async def amireallyalive(alive):
         f"┣[•🗃 **Modules  :**{len(modules)} Loaded🔥\n"
         f"┣[•🕒 **Uptime   :**{uptime} 🔥\n"
         f"╰━━━━━━━━━━━━━━━━━━━━━╯\n"
-        f" •MOD BY : `{DEFAULTUSER}`\n"
+        f" •MOD BY : `{DEFAULTUSER}`\n\n"
         f"**REPO:** [XBOT-REMIX](https://github.com/ximfine/XBot-Remix)\n")
     if ALIVE_LOGO:
         try:
