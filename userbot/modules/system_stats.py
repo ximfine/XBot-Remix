@@ -245,7 +245,7 @@ async def amireallyalive(alive):
         f"┣[•🕒 **Uptime   :**{uptime} 🔥\n"
         f"╰━━━━━━━━━━━━━━━━━━━━━╯\n"
         f" •MOD BY : `{DEFAULTUSER}`\n")
-        
+
     if ALIVE_LOGO:
         try:
             logo = ALIVE_LOGO
