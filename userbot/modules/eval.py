@@ -5,8 +5,6 @@
 #
 
 import asyncio
-import os
-import pybase64
 from os import remove
 from sys import executable
 
@@ -14,6 +12,7 @@ from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, TERM_ALIAS, bot
 from userbot.events import register
 
 MAX_MESSAGE_SIZE_LIMIT = 4095
+
 
 @register(outgoing=True, pattern=r"^\.eval(?: |$)(.*)")
 async def evaluate(query):
@@ -190,6 +189,7 @@ async def terminal_runner(term):
             "Terminal Command " + command + " was executed sucessfully",
         )
 """
+
 
 @register(outgoing=True, pattern="^.json$")
 async def _(event):
