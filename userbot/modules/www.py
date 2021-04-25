@@ -8,6 +8,7 @@
 
 import speedtest
 import time
+from telethon import functions
 from datetime import datetime
 from userbot import StartTime, bot, CMD_HELP
 from userbot.events import register
@@ -121,6 +122,13 @@ async def pingme(pong):
     duration = (end - start).microseconds / 9000
     await pong.edit("**CROOTSS!\n%sms**" % (duration))
 
+@register(outgoing=True, pattern="^.dc$")
+async def neardc(event):
+    """ For .dc command, get the nearest datacenter information. """
+    result = await event.client(functions.help.GetNearestDcRequest())
+    await event.edit(f"Country : `{result.country}`\n"
+                     f"Nearest Datacenter : `{result.nearest_dc}`\n"
+                     f"This Datacenter : `{result.this_dc}`")
 
 CMD_HELP.update(
     {"ping": "`.ping`\
@@ -128,5 +136,7 @@ CMD_HELP.update(
     \n\n`.speed`\
     \nUsage: Does a speedtest and shows the results.\
     \n\n`.pong`\
-    \nUsage: Shows how long it takes to ping your bot."
+    \nUsage: Shows how long it takes to ping your bot.\
+    \n\n`.dc`\
+    \nUsage: Shows your telegram datacenter."
      })
