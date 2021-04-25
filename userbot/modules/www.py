@@ -122,6 +122,7 @@ async def pingme(pong):
     duration = (end - start).microseconds / 9000
     await pong.edit("**CROOTSS!\n%sms**" % (duration))
 
+
 @register(outgoing=True, pattern="^.dc$")
 async def neardc(event):
     """ For .dc command, get the nearest datacenter information. """
