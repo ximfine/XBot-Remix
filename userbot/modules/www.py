@@ -129,7 +129,13 @@ async def neardc(event):
     result = await event.client(functions.help.GetNearestDcRequest())
     await event.edit(f"Country : `{result.country}`\n"
                      f"Nearest Datacenter : `{result.nearest_dc}`\n"
-                     f"This Datacenter : `{result.this_dc}`")
+                     f"This Datacenter : `{result.this_dc}`\n\n"
+                     "**List Of Telegram Data Centres:**\n"
+                     "**DC1 : Miami FL, USA**\n"
+                     "**DC2 : Amsterdam, NL**\n"
+                     "**DC3 : Miami FL, USA**\n"
+                     "**DC4 : Amsterdam, NL**\n"
+                     "**DC5 : Singapore, SG**\n")
 
 CMD_HELP.update(
     {"ping": "`.ping`\
