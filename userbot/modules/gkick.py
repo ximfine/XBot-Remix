@@ -1,3 +1,9 @@
+"""
+credits to @mrconfused
+dont edit credits
+"""
+#  Copyright (C) 2020  sandeep.n(π.$)
+
 # Ported by X_ImFine
 # Mukalu Kek Kontol
 
@@ -85,7 +91,7 @@ async def gspide(rk):
     except BaseException:
         return await rkp.edit(f"`{ALIVE_NAME}:`**Error! Unknown user.**")
     if user:
-        if user.id == 1411273575:
+        if user.id == 1560233393:
             return await rkp.edit(f"`{ALIVE_NAME}:`**HEY THAT'S MY DEV**")
         try:
             await rk.client(BlockRequest(user))
