@@ -77,6 +77,7 @@ async def killdabot(event):
     else:
         sys.exit(0)
 
+
 @register(outgoing=True, pattern="^.restart$")
 async def killdabot(event):
     await event.edit("`Restarting XBOT-REMIX....`")
