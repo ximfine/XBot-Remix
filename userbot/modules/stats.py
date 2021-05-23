@@ -2,7 +2,6 @@
 Syntax: .stats"""
 import logging
 import time
-from telethon import events
 from telethon.events import NewMessage
 from telethon.tl.custom import Dialog
 from telethon.tl.types import Channel, Chat, User
@@ -137,12 +136,12 @@ def user_full_name(user):
     names = [i for i in list(names) if i]
     return " ".join(names)
 
+
 def make_mention(user):
     if user.username:
         return f"@{user.username}"
     else:
         return inline_mention(user)
-
 
 
 CMD_HELP.update(
