@@ -92,11 +92,39 @@ async def stats(event: NewMessage.Event) -> None:  # pylint: disable = R0912, R0
     await event.edit(response)
 
 
-def make_mention(user):
-    if user.username:
-        return f"@{user.username}"
+@register(outgoing=True, pattern=r"^\.ustat")
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = "".join(event.text.split(maxsplit=1)[1:])
+    reply_message = await event.get_reply_message()
+    if not event.reply_to_msg_id:
+        await event.edit("**Silahkan reply di user goblok!**")
+        return
+    if input_str:
+        try:
+            uid = int(input_str)
+        except ValueError:
+            try:
+                u = await event.client.get_entity(input_str)
+            except ValueError:
+                await edit.event("`Silahkan reply di user goblok!`"
+                                 )
+            uid = u.id
     else:
-        return inline_mention(user)
+        uid = reply_message.sender_id
+    chat = "@tgscanrobot"
+    event = await event.edit("`Checking Group user...`")
+    async with bot.conversation(chat) as conv:
+        try:
+            await conv.send_message(f"{uid}")
+        except YouBlockedUserError:
+            await steal.reply(
+                "```Mohon Unblock @tgscanrobot Dan Coba Lagi```"
+            )
+        response = await conv.get_response()
+        await event.client.send_read_acknowledge(conv.chat_id)
+        await event.edit(response.text)
 
 
 def inline_mention(user):
@@ -107,48 +135,15 @@ def inline_mention(user):
 def user_full_name(user):
     names = [user.first_name, user.last_name]
     names = [i for i in list(names) if i]
-    full_name = ' '.join(names)
-    return full_name
+    return " ".join(names)
+
+def make_mention(user):
+    if user.username:
+        return f"@{user.username}"
+    else:
+        return inline_mention(user)
 
 
-@register(outgoing=True, pattern=r"^\.ustat")
-async def _(event):
-    if event.fwd_from:
-        return
-    if not event.reply_to_msg_id:
-        return await event.edit("```Balas di Pesan Goblok!!.```")
-    reply_message = await event.get_reply_message()
-    if not reply_message.text:
-        return await event.edit("```Balas di Pesan Goblok!!```")
-    chat = "@tgscanrobot"
-    await event.edit("Checking Group User....")
-    async with event.client.conversation(chat) as conv:
-        try:
-            response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=1557162396))
-            msg = await event.client.forward_messages(chat, reply_message)
-            response = await response
-        except YouBlockedUserError:
-            await event.reply("unblock me @tgscanrobot to work")
-            return
-        if response.text.startswith("I understand only text"):
-            await event.edit("Sorry i cant't check group this user **BURIK!!**")
-        else:
-            if response.text.startswith("Information"):
-                response = conv.wait_event(
-                    events.NewMessage(
-                        incoming=True,
-                        from_users=1557162396))
-                response = await response
-                await event.delete()
-                await event.client.send_message(event.chat_id, response.message, reply_to=reply_message.id)
-                await event.client.delete_messages(conv.chat_id,
-                                                   [msg.id, response.id])
-            else:
-                await event.edit("try again")
-        await bot.send_read_acknowledge(conv.chat_id)
 
 CMD_HELP.update(
     {
