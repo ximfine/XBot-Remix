@@ -43,33 +43,6 @@ wget https://raw.githubusercontent.com/ximfine/XBot-Remix/alpha/Getstring.sh && 
 ```
 <br>
 
-## How To Deploy 👷
-
-```
-* **[HEROKU](https://www.heroku.com/) Method** 🔧
-
-  > First get API_KE & API_HASH in my.telegram.org (required)
-
-  > Get String Session on command below run in your terminal (required)
-
-  > Next click Deploy the button below. 
-
-  > Fill in the required fields on heroku
-
-  > Finally turn on the app and check the logs (settings -> view logs) enjoy :)
-```
-
-## <p align="center">💻 Deploy on Heroku 💻</p>
-
-
-<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/ximfine/XBot-Remix/tree/alpha"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blue?style=flat&logo=heroku" width="210" height="34.45" /></a></p>
-
-<br>
-</p>
-
-## How to setup Google Drive
-<p align="center"><a href="https://telegra.ph/How-To-Setup-Google-Drive-04-03"> <img src="https://raw.githubusercontent.com/ximfine/XBot-Remix/alpha/userbot/resources/gd.png" alt="haa" width="210" height="34.45" /></a></p>
-
 ## Credits
 *   [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
 *   [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
