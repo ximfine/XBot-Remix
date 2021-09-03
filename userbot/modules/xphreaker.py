@@ -10,6 +10,7 @@ import asyncio
 from userbot import bot, CMD_HELP
 from userbot.events import register
 
+
 @register(outgoing=True, pattern="^.dec(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
