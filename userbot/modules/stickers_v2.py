@@ -1,6 +1,7 @@
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-import io, asyncio
+import io
+import asyncio
 from userbot import bot, CMD_HELP
 from userbot.events import register
 
