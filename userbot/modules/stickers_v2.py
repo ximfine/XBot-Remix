@@ -1,6 +1,6 @@
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-import io
+import io, asyncio
 from userbot import bot, CMD_HELP
 from userbot.events import register
 
@@ -51,6 +51,7 @@ async def _(event):
         return
     chat = "@stickers_to_image_bot"
     await event.edit("Convert to image..")
+    await asyncio.sleep(8)
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
