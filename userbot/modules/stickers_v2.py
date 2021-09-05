@@ -51,7 +51,7 @@ async def _(event):
         await event.edit("Balas di Sticker Tolol!!")
         return
     chat = "@stickers_to_image_bot"
-    await event.edit("Convert to image..")   
+    await event.edit("Convert to image..")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
