@@ -3,7 +3,7 @@ name: Container
 on: workflow_dispatch
 
 env:
-  IMAGE_NAME: XBot-Remix
+  IMAGE_NAME: xbot-remix
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   HEROKU_APP: ${{ secrets.HEROKU_APP }}
 
