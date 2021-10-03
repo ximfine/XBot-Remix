@@ -14,7 +14,7 @@ async def all(event):
     query = event.pattern_match.group(1)
     mentions = f"@all {query}"
     chat = await event.get_input_chat()
-    async for x in bot.iter_participants(chat, 10000):
+    async for x in bot.iter_participants(chat, 1000):
         mentions += f"[\u2063](tg://user?id={x.id} {query})"
     await bot.send_message(chat, mentions, reply_to=event.message.reply_to_msg_id)
 
