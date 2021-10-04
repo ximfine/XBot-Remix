@@ -53,7 +53,7 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan bin yang mau di generate!..__")
     await event.edit(f"```Generated CC {query}..```")
-    async with bot.conversation("@Carol5_bot") as conv:
+    async with bot.conversation("@TorpedoXx_Bot") as conv:
         try:
             jemboed = await conv.send_message(f"/gen {query}")
             await asyncio.sleep(8)
@@ -99,7 +99,7 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"```Checking BIN {query}```")
-    async with bot.conversation("@Carol5_bot") as conv:
+    async with bot.conversation("@cardingxbot") as conv:
         try:
             jemboed = await conv.send_message(f"/bin {query}")
             await asyncio.sleep(10)
