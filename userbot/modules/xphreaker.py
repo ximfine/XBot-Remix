@@ -56,7 +56,7 @@ async def _(event):
     async with bot.conversation("@TorpedoXx_Bot") as conv:
         try:
             jemboed = await conv.send_message(f"/gen {query}")
-            await asyncio.sleep(8)
+            await asyncio.sleep(2)
             asu = await conv.get_response()
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
