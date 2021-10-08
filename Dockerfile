@@ -4,9 +4,14 @@ FROM ximfine/xproject:buster
 #
 # Clone repo and prepare working directory
 #
-RUN git clone -b alpha https://github.com/ximfine/Xbot-Remix /home/xnewbie/
+RUN git clone -b alpha https://github.com/ximfine/XBot-Remix /home/xnewbie/
 RUN mkdir /home/xnewbie/bin/
 WORKDIR /home/xnewbie/
+
+#
+# Make open port TCP
+#
+EXPOSE 80 443
 
 # Upgrade pip
 RUN pip install --upgrade pip
