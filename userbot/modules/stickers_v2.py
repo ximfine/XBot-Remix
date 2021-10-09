@@ -100,7 +100,7 @@ async def sticker_to_png(sticker):
     await sticker.edit("`Stiker Berhasil Di Colong!`")
     image = io.BytesIO()
     await sticker.client.download_media(img, image)
-    image.name = "sticker.png"
+    image.name = "sticker.jpg"
     image.seek(0)
     await sticker.client.send_file(
         sticker.chat_id, image, reply_to=img.id, force_document=True
