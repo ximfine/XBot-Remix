@@ -102,7 +102,7 @@ async def sticker_to_png(sticker):
     await sticker.client.download_media(img, image)
     image.name = "sticker.jpg"
     image.seek(0)
-    await sticker.client.send_file(
+    await sticker.client.send_photo(
         sticker.chat_id, image, reply_to=img.id
     )
     await sticker.delete()
