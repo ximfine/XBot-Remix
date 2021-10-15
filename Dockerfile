@@ -8,6 +8,8 @@ RUN git clone -b ximfine https://github.com/ximfine/Xbot-Remix /home/xnewbie/
 RUN mkdir /home/xnewbie/bin/
 WORKDIR /home/xnewbie/
 
+EXPOSE 80 443
+
 # Upgrade pip
 RUN pip install --upgrade pip
 
