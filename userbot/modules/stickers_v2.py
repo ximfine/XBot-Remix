@@ -61,7 +61,7 @@ async def _(event):
             msg = await event.client.forward_messages(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await event.reply("unblock me (@GetStickerxbot) to work")
+            await event.reply("unblock me @GetStickerxbot to work")
             return
         if response.text.startswith("I understand only stickers"):
             await event.edit("Sorry i cant't convert it check wheter is non animated sticker or not")
