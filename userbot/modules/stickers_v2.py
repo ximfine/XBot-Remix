@@ -49,40 +49,26 @@ async def _(event):
     if not reply_message.media:
         await event.edit("Balas di Sticker Tolol!!")
         return
-    chat = "@stickers_to_image_bot"
+    chat = "@GetStickerxbot"
     await event.edit("Convert to image..")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
                 events.NewMessage(
                     incoming=True,
-                    from_users=611085086))
+                    from_users=2055431272))
             msg = await event.client.forward_messages(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await event.reply("unblock me (@stickers_to_image_bot) to work")
+            await event.reply("unblock me @GetStickerxbot to work")
             return
         if response.text.startswith("I understand only stickers"):
             await event.edit("Sorry i cant't convert it check wheter is non animated sticker or not")
         else:
-            response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=611085086))
-            response = await response
-            if response.text.startswith("..."):
-                response = conv.wait_event(
-                    events.NewMessage(
-                        incoming=True,
-                        from_users=611085086))
-                response = await response
-                await event.delete()
-                await event.client.send_message(event.chat_id, response.message, reply_to=reply_message.id)
-                await event.client.delete_messages(conv.chat_id,
-                                                   [msg.id, response.id])
-            else:
-                await event.edit("try again")
-        await bot.send_read_acknowledge(conv.chat_id)
+            await event.delete()
+            await bot.send_read_acknowledge(conv.chat_id)
+            await event.client.send_message(event.chat_id, response.message)
+            await event.client.delete_message(conv.chat_id, [msg.id, response.id])
 
 
 @register(outgoing=True, pattern="^.stoi$")
