@@ -66,24 +66,10 @@ async def _(event):
         if response.text.startswith("I understand only stickers"):
             await event.edit("Sorry i cant't convert it check wheter is non animated sticker or not")
         else:
-            response = conv.wait_event(
-                events.NewMessage(
-                    incoming=True,
-                    from_users=2055431272))
-            response = await response
-            if response.text.startswith("..."):
-                response = conv.wait_event(
-                    events.NewMessage(
-                        incoming=True,
-                        from_users=2055431272))
-                response = await response
-                await event.delete()
-                await event.client.send_message(event.chat_id, response.message, reply_to=reply_message.id)
-                await event.client.delete_messages(conv.chat_id,
-                                                   [msg.id, response.id])
-            else:
-                await event.edit("try again")
-        await bot.send_read_acknowledge(conv.chat_id)
+            await event.delete()
+            await bot.send_read_acknowledge(conv.chat_id)
+            await event.client.send_message(event.chat_id, response.message)
+            await event.client.delete_message(conv.chat_id, [msg.id, response.id])
 
 
 @register(outgoing=True, pattern="^.stoi$")
