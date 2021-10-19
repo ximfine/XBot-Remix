@@ -216,21 +216,9 @@ async def _(event):
     type = res['data']['type']
     level = res['data']['level']
     bank = res['data']['bank']
-    country = res['data']['country']
-    valid = f"""
-    <b>➤ Valid Bin:</b>
-    <b>Bin -</b> <code>{input}</code>
-    <b>Status -</b> <code>Valid Bin</code>
-    <b>Vendor -</b> <code>{vendor}</code>
-    <b>Type -</b> <code>{type}</code>
-    <b>Level -</b> <code>{level}</code>
-    <b>Bank -</b> <code>{bank}</code>
-    <b>Country -</b> <code>{country}</code>
-    <b>Checked By - @{me}</b>
-    <b>User-ID - {event.sender_id}</b>
-    """
+    country = res['data']['country']  
     me = (await event.client.get_me()).username
-    await event.edit(valid, parse_mode="HTML")
+    await event.edit(f"➤ Valid Bin ✅\n\nBin: {input}\nVendor: {vendor}\nType: {type}\nLevel: {level}\nBank: {bank}\nCountry: {country}\n\nChecked By: @{me}\n")
             
 
 
