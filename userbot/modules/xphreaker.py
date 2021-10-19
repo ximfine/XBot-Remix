@@ -212,9 +212,9 @@ async def _(event):
     input = event.text.split(" ", maxsplit=1)[1]
     url = requests.get(f"https://lookup.binlist.net/{input}")
     res = url.json()
-    vendor = res['data']['vendor']
+    vendor = res['data']['scheme']
     type = res['data']['type']
-    level = res['data']['level']
+    level = res['data']['brand']
     bank = res['data']['bank']
     country = res['data']['country']  
     me = (await event.client.get_me()).username
