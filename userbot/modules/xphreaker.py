@@ -99,7 +99,7 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"```Checking BIN {query}```")
-    async with bot.conversation("@cardingxbot") as conv:
+    async with bot.conversation("@xcardingxbot") as conv:
         try:
             jemboed = await conv.send_message(f"/bin {query}")
             await asyncio.sleep(10)
