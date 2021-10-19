@@ -217,7 +217,7 @@ async def _(event):
     level = res['data']['level']
     bank = res['data']['bank']
     country = res['data']['country']  
-    emoji = res['data']['emoji']
+    emoji = res['data']['name']['emoji']
     me = (await event.client.get_me()).username
     await event.edit(f"➤ Valid Bin ✅\n\nBin: {input} {emoji}\nVendor: {vendor}\nType: {type}\nLevel: {level}\nBank: {bank}\nCountry: {country}\n\nChecked By: @{me}\n")
             
