@@ -210,14 +210,13 @@ async def _(event):
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"```Checking BIN {query}```")
     input = event.text.split(" ", maxsplit=1)[1]
-    url = requests.get(f"https://bins-su-api.now.sh/api/{input}")
+    url = requests.get(f"https://lookup.binlist.net/{input}")
     res = url.json()
     vendor = res['data']['vendor']
     type = res['data']['type']
     level = res['data']['level']
     bank = res['data']['bank']
     country = res['data']['country']  
-    emoji = res['data']['name']['emoji']
     me = (await event.client.get_me()).username
     await event.edit(f"➤ Valid Bin ✅\n\nBin: {input} {emoji}\nVendor: {vendor}\nType: {type}\nLevel: {level}\nBank: {bank}\nCountry: {country}\n\nChecked By: @{me}\n")
             
