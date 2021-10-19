@@ -198,9 +198,6 @@ async def _(event):
             await event.edit(asu.message)
             await event.client.delete_messages(conv.chat_id, [jemboed.id, asu.id])
 
-
-API = "https://lookup.binlist.net/"
-
 @register(outgoing=True, pattern="^.xbin(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -210,8 +207,8 @@ async def _(event):
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"Checking BIN {query}")
     input = event.text.split(" ", maxsplit=1)[1]
-    
-    data = requests.get(f"API+{query}").json()
+    url = requests.get(f"https://lookup.binlist.net/{input}")
+    res = url.json()
     sys.stdout.flush()
     vendor = data['scheme']
     type = data['type']
