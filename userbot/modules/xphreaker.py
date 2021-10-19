@@ -221,17 +221,16 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"```Checking BIN {query}```")
-        try:
-            input = event.text.split(" ", maxsplit=1)[1]
-            url = requests.get(f"https://bins-su-api.now.sh/api/{input}")
-            res = url.json()
-            vendor = res['data']['vendor']
-            type = res['data']['type']
-            level = res['data']['level']
-            bank = res['data']['bank']
-            country = res['data']['country']
-            me = (await event.client.get_me()).username
-            await event.edit(valid)
+    input = event.text.split(" ", maxsplit=1)[1]
+    url = requests.get(f"https://bins-su-api.now.sh/api/{input}")
+    res = url.json()
+    vendor = res['data']['vendor']
+    type = res['data']['type']
+    level = res['data']['level']
+    bank = res['data']['bank']
+    country = res['data']['country']
+    me = (await event.client.get_me()).username
+    await event.edit(valid, parse_mode="HTML")
             
 
 
