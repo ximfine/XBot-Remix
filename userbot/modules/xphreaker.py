@@ -208,18 +208,17 @@ async def _(event):
     query = event.pattern_match.group(1)
     if not query:
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
-    await event.edit(f"```Checking BIN {query}```")
+    await event.edit(f"Checking BIN {query}")
     input = event.text.split(" ", maxsplit=1)[1]
-    url = requests.get(f"https://lookup.binlist.net/{input}")
+    url = requests.get(f"https://bins-su-api.now.sh/api/{input}")
     res = url.json()
-    vendor = res['data']['scheme']
+    vendor = res['data']['vendor']
     type = res['data']['type']
-    level = res['data']['brand']
+    level = res['data']['level']
     bank = res['data']['bank']
     country = res['data']['country']  
     me = (await event.client.get_me()).username
-    await event.edit(f"➤ Valid Bin ✅\n\nBin: {input} {emoji}\nVendor: {vendor}\nType: {type}\nLevel: {level}\nBank: {bank}\nCountry: {country}\n\nChecked By: @{me}\n")
-            
+    await event.edit(f"VALID BIN ✅\n\n**➤Bin:** `{input}`\n**Vendor:** `{vendor}`\n**Type:** `{type}`\n**Level:** `{level}`\n**Bank:** `{bank}`\n**Country:** `{country}`\n\n**Checked By:** @{me}\n")            
 
 
 
