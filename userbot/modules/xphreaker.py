@@ -206,9 +206,9 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"Checking BIN {query}")
-    input = event.text.split(" BIN > ", maxsplit=1)[1]
+    input = event.text.split(" ", maxsplit=1)[1]
     url = requests.get(f"https://lookup.binlist.net/{input}")
-    res = url.json()
+    data = url.json()
     sys.stdout.flush()
     vendor = data['scheme']
     type = data['type']
