@@ -218,7 +218,7 @@ async def _(event):
     bank = res['data']['bank']
     country = res['data']['country']  
     me = (await event.client.get_me()).username
-    await event.edit(f"VALID BIN ✅\n\n**➤Bin:** `{input}`\n**Vendor:** `{vendor}`\n**Type:** `{type}`\n**Level:** `{level}`\n**Bank:** `{bank}`\n**Country:** `{country}`\n\n**Checked By:** @{me}\n")            
+    await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `{bank}`\n➤**Country:** `{country}`\n\n**Checked By:** @{me}\n")            
 
 
 
