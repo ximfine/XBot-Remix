@@ -217,20 +217,10 @@ async def _(event):
     country = data['country']['name']
     website = data['bank']['url']
     phone = data['bank']['phone']
-    me = (await event.client.get_me()).username
-    if not bank:
-       bank = "Unavailable"
-    if not website:
-       website = "Unavailable"
-    if not phone:
-       phone = "Unavailable"
-    if not type:
-       type = "Unavailable"
-    if not vendor:
-       vendor = "Unavailable"
-    return await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `{bank}`\n➤**Country:** `{country}`\n➤Website: {website}\n➤Contact: {phone}\n\n**Checked By:** @{me}\n")            
-
-
+    me = (await event.client.get_me()).username   
+    await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `{bank}`\n➤**Country:** `{country}`\n➤Website: {website}\n➤Contact: {phone}\n\n**Checked By:** @{me}\n")            
+    else:
+         await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `Unavailable`\n➤**Country:** `{country}`\n➤Website: Unavailable\n➤Contact: Unavailable\n\n**Checked By:** @{me}\n")
 
 
 CMD_HELP.update({
