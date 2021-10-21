@@ -218,17 +218,17 @@ async def _(event):
     website = data['bank']['url']
     phone = data['bank']['phone']
     me = (await event.client.get_me()).username
-    if empty bank:
+    if not bank:
        bank = "Unavailable"
-    if empty website:
+    if not website:
        website = "Unavailable"
-    if empty phone:
+    if not phone:
        phone = "Unavailable"
-    if empty type:
+    if not type:
        type = "Unavailable"
-    if empty vendor:
+    if not vendor:
        vendor = "Unavailable"
-    await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `{bank}`\n➤**Country:** `{country}`\n➤Website: {website}\n➤Contact: {phone}\n\n**Checked By:** @{me}\n")            
+    return await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `{bank}`\n➤**Country:** `{country}`\n➤Website: {website}\n➤Contact: {phone}\n\n**Checked By:** @{me}\n")            
 
 
 
