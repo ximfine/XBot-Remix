@@ -11,7 +11,7 @@ WORKDIR /home/xnewbie/
 #
 # Make open port TCP
 #
-EXPOSE 80 443
+EXPOSE 80 443 8443
 
 # Upgrade pip
 RUN pip install --upgrade pip
