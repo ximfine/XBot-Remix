@@ -198,30 +198,6 @@ async def _(event):
             await event.edit(asu.message)
             await event.client.delete_messages(conv.chat_id, [jemboed.id, asu.id])
 
-@register(outgoing=True, pattern="^.xbin(?: |$)(.*)")
-async def _(event):
-    if event.fwd_from:
-        return
-    query = event.pattern_match.group(1)
-    if not query:
-        return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
-    await event.edit(f"Checking BIN {query}")
-    input = event.text.split(" ", maxsplit=1)[1]
-    url = requests.get(f"https://lookup.binlist.net/{input}")
-    data = url.json()
-    sys.stdout.flush()
-    vendor = data['scheme']
-    type = data['type']
-    level = data['brand']
-    bank = data['bank']['name']
-    country = data['country']['name']
-    website = data['bank']['url']
-    phone = data['bank']['phone']
-    me = (await event.client.get_me()).username   
-    await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `{bank}`\n➤**Country:** `{country}`\n➤Website: {website}\n➤Contact: {phone}\n\n**Checked By:** @{me}\n")            
-    else:
-         await event.edit(f"VALID BIN ✅\n\n➤**Bin:** `{input}`\n➤**Vendor:** `{vendor}`\n➤**Type:** `{type}`\n➤**Level:** `{level}`\n➤**Bank:** `Unavailable`\n➤**Country:** `{country}`\n➤Website: Unavailable\n➤Contact: Unavailable\n\n**Checked By:** @{me}\n")
-
 
 CMD_HELP.update({
     "xphreaker":
