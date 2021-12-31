@@ -53,7 +53,7 @@ async def _(event):
         if asu.text.startswith("Wait for result..."):
             return await event.edit(f"Gagal Mengecek {query}!")
         else:
-            await event.edit(asu.message)
+            await event.edit(```asu.message```)
             await event.client.delete_messages(conv.chat_id, [jemboed.id, asu.id])
 
 
