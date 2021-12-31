@@ -42,14 +42,14 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan cc yang mau di check!..__")
     await event.edit("```Checking CC Number..```")
-    async with bot.conversation("@Carol5_bot") as conv:
+    async with bot.conversation("@xcheckerxbot") as conv:
         try:
-            jemboed = await conv.send_message(f"/ss {query}")
+            jemboed = await conv.send_message(f"/ch {query}")
             await asyncio.sleep(10)
             asu = await conv.get_response()
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
-            return await event.reply("Unblock @Carol5_bot atau chat dulu")
+            return await event.reply("Unblock @xcheckerxbot atau chat dulu")
         if asu.text.startswith("Wait for result..."):
             return await event.edit(f"Gagal Mengecek {query}!")
         else:
@@ -65,7 +65,7 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan BIN yang mau di check!..__")
     await event.edit(f"```Checking BIN {query}```")
-    async with bot.conversation("@xcardingxbot") as conv:
+    async with bot.conversation("@xcheckerxbot") as conv:
         try:
             jemboed = await conv.send_message(f"/bin {query}")
             await asyncio.sleep(10)
@@ -88,7 +88,7 @@ async def _(event):
     if not query:
         return await event.edit("__Silahkan masukan SK-KEY yang mau di check!..__")
     await event.edit(f"```Checking SK KEY {query}```")
-    async with bot.conversation("@xcardingxbot") as conv:
+    async with bot.conversation("@xcheckerxbot") as conv:
         try:
             jemboed = await conv.send_message(f"/key {query}")
             await asyncio.sleep(10)
